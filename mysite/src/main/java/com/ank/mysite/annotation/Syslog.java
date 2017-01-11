@@ -12,17 +12,17 @@ import java.lang.annotation.Target;
 public @interface Syslog {
 	
 	/**
-	 * 模块名称
+	 * 妯″潡鍚嶇О
 	 * @return
 	 */
 	String module() default "";
 	/**
-	 * 方法
+	 * 鏂规硶
 	 * @return
 	 */
 	String method() default "";
 	/**
-	 * 描述
+	 * 鎻忚堪
 	 * @return
 	 */
     String description() default "";

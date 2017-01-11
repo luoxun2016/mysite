@@ -31,19 +31,19 @@ import com.ank.mysite.entity.User;
 @Controller
 public class LoginController {
 	/**
-	 * ÏÔÊ¾µÇÂ¼Ò³
+	 * æ˜¾ç¤ºç™»å½•é¡µ
 	 * @param request
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/login")
-	@Syslog(module="Ä£¿é", method="·½·¨" , description="ÃèÊö")
+	@Syslog(module="æ¨¡å—", method="æ–¹æ³•" , description="æè¿°")
 	public String login(HttpServletRequest request, Model model) {
 		return "login";
 	}
 	
 	/**
-	 * ÎŞÈ¨ÏŞÏÔÊ¾
+	 * æ— æƒé™æ˜¾ç¤º
 	 * @param request
 	 * @param model
 	 * @return
@@ -54,7 +54,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * ÑéÖ¤Âë
+	 * éªŒè¯ç 
 	 * @param session
 	 * @return
 	 */
@@ -65,7 +65,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * Êµ¼ÊµÄµÇÂ¼´úÂë Èç¹ûµÇÂ¼³É¹¦£¬Ìø×ªÖÁÊ×Ò³£»µÇÂ¼Ê§°Ü£¬Ôò½«Ê§°ÜĞÅÏ¢·´À¡¶ÔÓÃ»§
+	 * å®é™…çš„ç™»å½•ä»£ç  å¦‚æœç™»å½•æˆåŠŸï¼Œè·³è½¬è‡³é¦–é¡µï¼›ç™»å½•å¤±è´¥ï¼Œåˆ™å°†å¤±è´¥ä¿¡æ¯åé¦ˆå¯¹ç”¨æˆ·
 	 * 
 	 * @param request
 	 * @param model
@@ -94,19 +94,19 @@ public class LoginController {
 				return "redirect:login";
 			}
 		} catch (IncorrectCredentialsException e) {
-			msg = "µÇÂ¼ÃÜÂë´íÎó. Password for account " + token.getPrincipal() + " was incorrect.";
+			msg = "ç™»å½•å¯†ç é”™è¯¯. Password for account " + token.getPrincipal() + " was incorrect.";
 		} catch (ExcessiveAttemptsException e) {
-			msg = "µÇÂ¼Ê§°Ü´ÎÊı¹ı¶à";
+			msg = "ç™»å½•å¤±è´¥æ¬¡æ•°è¿‡å¤š";
 		} catch (LockedAccountException e) {
-			msg = "ÕÊºÅÒÑ±»Ëø¶¨. The account for username " + token.getPrincipal() + " was locked.";
+			msg = "å¸å·å·²è¢«é”å®š. The account for username " + token.getPrincipal() + " was locked.";
 		} catch (DisabledAccountException e) {
-			msg = "ÕÊºÅÒÑ±»½ûÓÃ. The account for username " + token.getPrincipal() + " was disabled.";
+			msg = "å¸å·å·²è¢«ç¦ç”¨. The account for username " + token.getPrincipal() + " was disabled.";
 		} catch (ExpiredCredentialsException e) {
-			msg = "ÕÊºÅÒÑ¹ıÆÚ. the account for username " + token.getPrincipal() + "  was expired.";
+			msg = "å¸å·å·²è¿‡æœŸ. the account for username " + token.getPrincipal() + "  was expired.";
 		} catch (UnknownAccountException e) {
-			msg = "ÕÊºÅ²»´æÔÚ. There is no user with username of " + token.getPrincipal();
+			msg = "å¸å·ä¸å­˜åœ¨. There is no user with username of " + token.getPrincipal();
 		} catch (UnauthorizedException e) {
-			msg = "ÄúÃ»ÓĞµÃµ½ÏàÓ¦µÄÊÚÈ¨£¡" + e.getMessage();
+			msg = "æ‚¨æ²¡æœ‰å¾—åˆ°ç›¸åº”çš„æˆæƒï¼" + e.getMessage();
 		}
 
 		model.addAttribute("message", msg);

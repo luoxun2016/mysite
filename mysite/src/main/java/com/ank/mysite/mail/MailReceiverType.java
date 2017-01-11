@@ -3,7 +3,7 @@ package com.ank.mysite.mail;
 import java.util.Properties;
 
 public enum MailReceiverType {
-	/** ÍøÒ×POP3 */
+	/** ç½‘æ˜“POP3 */
 	MAIL163_POP3 {
 		@Override
 		public Properties getProperties() {
@@ -12,7 +12,7 @@ public enum MailReceiverType {
 			return props;
 		}
 	},
-	/** ÌÚÑ¶ÓÊÏäPOP3  */
+	/** è…¾è®¯é‚®ç®±POP3  */
 	MAILQQ_POP3 {
 		@Override
 		public Properties getProperties() {
@@ -36,12 +36,12 @@ public enum MailReceiverType {
 		Properties props = new Properties();
 		String protocol = pro.getName();
 		props.setProperty("mail.store.protocol", protocol);
-		/**Ä¬ÈÏÆô3ÓÃSSL ¶Ë¿ÚÎª995*/
+		/**é»˜è®¤å¯3ç”¨SSL ç«¯å£ä¸º995*/
 		props.setProperty(String.format("mail.%s.port", protocol), "995");
-		/**ÆôÓÃSSL start*/
+		/**å¯ç”¨SSL start*/
 		props.setProperty(String.format("mail.%s.socketFactory.class", protocol), "javax.net.ssl.SSLSocketFactory");
 		props.setProperty(String.format("mail.%s.ssl.enable", protocol), "true");
-		/**ÆôÓÃSSL end*/
+		/**å¯ç”¨SSL end*/
 		props.setProperty(String.format("mail.%s.socketFactory.fallback", protocol), "false");
 		props.setProperty(String.format("mail.%s.starttls.enable", protocol), "true");
 		props.setProperty(String.format("mail.%s.disabletop", protocol), "true");

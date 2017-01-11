@@ -41,25 +41,25 @@ public class SimpleMailReceiver {
 			Store store = null;
 			Folder folder = null;
 			try{
-				/**³õÊ¼»¯»á»°Session*/
+				/**åˆå§‹åŒ–ä¼šè¯Session*/
 				Properties props = type.getProperties();
 				Authenticator authenticator = AuthenticatorGenerator.getAuthenticator(username, password);
 				Session session = Session.getDefaultInstance(props, authenticator);
-				/**³õÊ¼»¯Store*/
+				/**åˆå§‹åŒ–Store*/
 				store = session.getStore();
 				store.connect();
-				/**»ñÈ¡ÊÕ¼şÏä*/
+				/**è·å–æ”¶ä»¶ç®±*/
 				folder = store.getFolder("INBOX");
-				/**ÒÔÖ»¶Á·½Ê½´ò¿ªÊÕ¼şÏä*/
+				/**ä»¥åªè¯»æ–¹å¼æ‰“å¼€æ”¶ä»¶ç®±*/
 				folder.open(Folder.READ_ONLY);
-				/**»ñÈ¡ËùÓĞÓÊ¼ş*/
+				/**è·å–æ‰€æœ‰é‚®ä»¶*/
 				Message[] messages = folder.getMessages();
 				
-				/** ´òÓ¡²»Í¬×´Ì¬µÄÓÊ¼şÊıÁ¿*/
-				LOG.info("ÊÕ¼şÏäÖĞ¹²" + messages.length + "·âÓÊ¼ş!");
-				LOG.info("ÊÕ¼şÏäÖĞ¹²" + folder.getUnreadMessageCount() + "·âÎ´¶ÁÓÊ¼ş!");
-				LOG.info("ÊÕ¼şÏäÖĞ¹²" + folder.getNewMessageCount() + "·âĞÂÓÊ¼ş!");
-				LOG.info("ÊÕ¼şÏäÖĞ¹²" + folder.getDeletedMessageCount() + "·âÒÑÉ¾³ıÓÊ¼ş!");
+				/** æ‰“å°ä¸åŒçŠ¶æ€çš„é‚®ä»¶æ•°é‡*/
+				LOG.info("æ”¶ä»¶ç®±ä¸­å…±" + messages.length + "å°é‚®ä»¶!");
+				LOG.info("æ”¶ä»¶ç®±ä¸­å…±" + folder.getUnreadMessageCount() + "å°æœªè¯»é‚®ä»¶!");
+				LOG.info("æ”¶ä»¶ç®±ä¸­å…±" + folder.getNewMessageCount() + "å°æ–°é‚®ä»¶!");
+				LOG.info("æ”¶ä»¶ç®±ä¸­å…±" + folder.getDeletedMessageCount() + "å°å·²åˆ é™¤é‚®ä»¶!");
 				
 				download(folder, messages);
 			}finally{
@@ -85,7 +85,7 @@ public class SimpleMailReceiver {
 				}
 				
 				if(recvMailUidSet.contains(uid)){
-					LOG.info("ÓÊ¼ş " + i + "ÒÑ¾­ÏÂÔØ¹ı£¡");
+					LOG.info("é‚®ä»¶ " + i + "å·²ç»ä¸‹è½½è¿‡ï¼");
 					continue;
 				}
 				

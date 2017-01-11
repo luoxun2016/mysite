@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block headbody %}
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+  <div class="row">
+    <div class="col-md-3">
+      <a href="{% url 'mail/list' %}" class="btn btn-primary btn-block margin-bottom">邮件列表</a>
+      {% include 'mail/menu.html' %}
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">写新邮件</h3>
+        </div>
+        <form id="mail_form" action="{% url 'mail/send' %}" method="post">
+        {% csrf_token %}
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="form-group">
+            <input class="form-control" name='receiver' placeholder="收件人:" value="{{receiver}}">
+          </div>
+          <div class="form-group">
+            <input class="form-control" name='subject' placeholder="主题:" value="{{subject}}">
+          </div>
+          <div class="form-group">
+            <textarea id="compose-textarea" class="form-control" name='content' style="height: 300px">
+            	{{content}}
+            </textarea>
+          </div>
+          <div class="form-group">
+            <div class="btn btn-default btn-file">
+              <i class="fa fa-paperclip"></i> 上传附件
+              <input type="file" name="attachment">
+            </div>
+          </div>
+          <div class="form-group">
+          	  <p>
+              <label for="filename" class="control-label">文件名</label>
+              <a href="#">删除</a>
+              <div class="progress progress-sm active">
+                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                  <span class="sr-only">20% Complete</span>
+                </div>
+              </div>
+              </p>
+          </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> 草稿</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 发送</button>
+          </div>
+          <button type="reset" class="btn btn-default"><i class="fa fa-times"></i> 重置</button>
+        </div>
+        <!-- /.box-footer -->
+        </form>
+      </div>
+      <!-- /. box -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+{% endblock %}
+
+{% block endbody %}
+<!-- Bootstrap WYSIHTML5 -->
+<script src="{% static 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' %}"></script>
+<!-- Page Script -->
+<script>
+  $(function () {
+    //Add text editor
+    $("#compose-textarea").wysihtml5();
+    
+    $('#mail_form').bootstrapValidator({
+     	feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            receiver: {
+                validators: {
+                	notEmpty: {
+                        message: '邮箱不能为空'
+                    },
+                    emailAddress: {
+                        message: '邮箱地址不合法'
+                    }
+                }
+            },
+            subject: {
+                validators: {
+                	notEmpty: {
+                        message: '主题不能为空'
+                    },
+                    stringLength: {
+                    	min: 1,
+                        max: 100,
+                        message: '主题长度不可以超过100个字符'
+                    }
+                }
+            }
+        }
+    });
+    
+    $("input[name='attachment']").change(function(){
+    	if(!this.value) return;
+    	
+    	var maxsize = 20;
+    	
+    	if(this.files[0].size > maxsize * 1024 * 1024){
+            alert('请上传小于'+maxsize+'M的文件');
+            return;
+        }
+        
+        var formData = new FormData();
+        formData.append('file', this.files[0]);
+        
+       	$.ajax({  
+	          url: '{% url 'mail/upload' %}',
+	          type: 'POST',
+	          data: formData,
+	          async: false,
+	          cache: false,
+	          contentType: false,  
+	          processData: false,
+	          dataType:'json',  
+	          success: function (data) {
+	          	if(data.ret){
+	          		alert(data.filename);
+	          	}else{
+	          		alert("文件上传失败");
+	          	}
+	          },  
+	          error: function (data) {
+	          	alert("文件上传失败");
+	          }
+	     });
+    });
+    
+  });
+</script>
+{% endblock %}

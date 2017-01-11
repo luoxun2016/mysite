@@ -6,7 +6,7 @@ import javax.mail.PasswordAuthentication;
 public final class AuthenticatorGenerator {
 
 	/**
-	 * 根据用户名和密码，生成Authenticator
+	 * 鏍规嵁鐢ㄦ埛鍚嶅拰瀵嗙爜锛岀敓鎴怉uthenticator
 	 * 
 	 * @param userName
 	 * @param password

@@ -26,25 +26,25 @@ public class MyAuthorizingRealm extends AuthorizingRealm {
 	private UserService userService;
 
 	/**
-	 * È¨ÏŞÈÏÖ¤£¬»ñÈ¡µÇÂ¼ÓÃ»§µÄÈ¨ÏŞ
+	 * æƒé™è®¤è¯ï¼Œè·å–ç™»å½•ç”¨æˆ·çš„æƒé™
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		String loginName = (String) principalCollection.fromRealm(getName()).iterator().next();
-		// ´Ë´¦Á¬¿âÆ¥ÅäÁËµÇÂ¼ÓÃ»§µÄÊı¾İ£¬¾ßÌåÔõÃ´×ö£¬ĞèÒª¸ù¾İ¸öÈËĞèÇó¶ø¶¨
+		// æ­¤å¤„è¿åº“åŒ¹é…äº†ç™»å½•ç”¨æˆ·çš„æ•°æ®ï¼Œå…·ä½“æ€ä¹ˆåšï¼Œéœ€è¦æ ¹æ®ä¸ªäººéœ€æ±‚è€Œå®š
 		User user = userService.findByName(loginName);
 		
 		Set<String> roles = new HashSet<String>();
 		Set<String> permissions = new HashSet<String>();
 		
 		if (user != null) {
-			// »ñÈ¡ÓÃ»§µÄ½ÇÉ«Ãû³Æ
+			// è·å–ç”¨æˆ·çš„è§’è‰²åç§°
 			List<Role> roleList = user.getRoleList();
 			if(roleList != null && !roleList.isEmpty()){
 				for(Role role : roleList){
 					roles.add(role.getRoleName());
 					
-					// »ñÈ¡ÓÃ»§µÄÈ¨ÏŞ
+					// è·å–ç”¨æˆ·çš„æƒé™
 					List<Permission> pList = role.getPermissionList();
 					if(pList != null && !pList.isEmpty()){
 						for(Permission p : pList){
@@ -61,20 +61,20 @@ public class MyAuthorizingRealm extends AuthorizingRealm {
 			return simpleAuthorInfo;
 		}
 		
-		//Èô¸Ã·½·¨Ê²Ã´¶¼²»×öÖ±½Ó·µ»ØnullµÄ»°,¾Í»áµ¼ÖÂÈÎºÎÓÃ»§·ÃÎÊÊ±¶¼»á×Ô¶¯Ìø×ªµ½unauthorizedUrlÖ¸¶¨µÄµØÖ·
+		//è‹¥è¯¥æ–¹æ³•ä»€ä¹ˆéƒ½ä¸åšç›´æ¥è¿”å›nullçš„è¯,å°±ä¼šå¯¼è‡´ä»»ä½•ç”¨æˆ·è®¿é—®æ—¶éƒ½ä¼šè‡ªåŠ¨è·³è½¬åˆ°unauthorizedUrlæŒ‡å®šçš„åœ°å€
 		return null;
 	}
 
 	/**
-	 * µÇÂ¼ÈÏÖ¤£¬´´½¨ÓÃ»§µÄµÇÂ¼ĞÅÏ¢
+	 * ç™»å½•è®¤è¯ï¼Œåˆ›å»ºç”¨æˆ·çš„ç™»å½•ä¿¡æ¯
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-		// ÅĞ¶ÏÓÃ»§µÇÂ¼×´Ì¬
+		// åˆ¤æ–­ç”¨æˆ·ç™»å½•çŠ¶æ€
 		User user = userService.findByName(token.getUsername());
 		if (user != null) {
-			// ±£´æÓÃ»§µÇÂ¼ĞÅÏ¢µ½ÈÏÖ¤ÖĞ
+			// ä¿å­˜ç”¨æˆ·ç™»å½•ä¿¡æ¯åˆ°è®¤è¯ä¸­
 			return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
 		}
 		return null;

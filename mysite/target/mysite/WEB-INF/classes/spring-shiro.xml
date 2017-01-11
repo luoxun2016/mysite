@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 数据库保存的密码是使用MD5算法加密的，所以这里需要配置一个密码匹配对象 -->  
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+    	<property name="hashAlgorithmName" value="MD5"/>
+    </bean>  
+
+	<!-- 配置权限管理器 -->
+	<bean id="shiroRealm" class="com.ank.mysite.shiro.MyAuthorizingRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"/>
+	</bean>
+
+	<!-- 缓存管理 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+
+	<!-- 权限管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 我们自定义的realm -->
+		<property name="realm" ref="shiroRealm" />
+		<!-- 缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<!-- Shiro权限拦截器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 权限管理器 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 未登录跳转地址 -->
+		<property name="loginUrl" value="/login" />
+		<!-- 已登录但没权限非法访问跳转地址 -->
+		<property name="unauthorizedUrl" value="/unauthorized" />
+		<!-- 权限配置过滤URL -->
+		<property name="filterChainDefinitions">
+			<value>
+				<!-- 拦截顺序是从前到后一次匹配，匹配成功后将不在向后匹配，所以/** = authc要写在最后面，否则会出现所有的请求只限制了登录 -->
+				<!-- anon无权限访问限制，此处是登录页面和登录请求 -->
+				/static/** = anon
+				/login = anon
+				/dologin = anon
+				/verifycode = anon
+				/unauthorized = anon
+				<!-- logout 退出登录：访问此连接Shiro内部会自动销毁session -->
+				/logout = logout
+				<!-- 需要user和add权限的用户才能访问此页面，多个权限用,隔开 -->
+				<!-- /user = perms[user:add] -->
+				<!-- 需要admin角色才能访问此页面 -->
+				<!-- /user/add=roles[admin] -->
+				<!--拦截非静态资源的所有请求 -->
+				/** = authc
+			</value>
+		</property>
+	</bean>
+
+	<!-- Shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+</beans>
