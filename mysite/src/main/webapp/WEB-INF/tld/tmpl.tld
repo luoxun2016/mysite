@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
 	version="2.0">
 
-	<description>rapid-framework tag library</description>
-	<display-name>rapid-framework tag</display-name>
+	<description>tmpl tag library</description>
+	<display-name>tmpl tag</display-name>
 	<tlib-version>1.0</tlib-version>
 	<short-name>tmpl</short-name>
 	<uri>http://www.ank.com/tmpl</uri>

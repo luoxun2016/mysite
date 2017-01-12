@@ -1,6 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
+
 <div class="box box-solid">
 	<div class="box-header with-border">
-		<h3 class="box-title">文章分类</h3>
+		<h3 class="box-title">æç« åç±»</h3>
 
 		<div class="box-tools">
 			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -21,7 +23,7 @@
 <!-- /. box -->
 <div class="box box-solid">
 	<div class="box-header with-border">
-		<h3 class="box-title">文章归档</h3>
+		<h3 class="box-title">æç« å½æ¡£</h3>
 
 		<div class="box-tools">
 			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -40,7 +42,7 @@
 <!-- /.box -->
 <div class="box box-solid">
 	<div class="box-header with-border">
-		<h3 class="box-title">热门标签</h3>
+		<h3 class="box-title">ç­é¨æ ç­¾</h3>
 
 		<div class="box-tools">
 			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

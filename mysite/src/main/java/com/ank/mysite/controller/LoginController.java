@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ank.mysite.annotation.Syslog;
 import com.ank.mysite.captcha.JCapchaHelper;
 import com.ank.mysite.entity.User;
 
@@ -37,9 +36,8 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login")
-	@Syslog(module="模块", method="方法" , description="描述")
 	public String login(HttpServletRequest request, Model model) {
-		return "login";
+		return "auth/login";
 	}
 	
 	/**
@@ -50,7 +48,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/unauthorized")
 	public String unauthorized(HttpServletRequest request, Model model) {
-		return "unauthorized";
+		return "auth/unauthorized";
 	}
 	
 	/**
@@ -94,22 +92,23 @@ public class LoginController {
 				return "redirect:login";
 			}
 		} catch (IncorrectCredentialsException e) {
-			msg = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";
+			msg = "登录密码错误.";
 		} catch (ExcessiveAttemptsException e) {
 			msg = "登录失败次数过多";
 		} catch (LockedAccountException e) {
-			msg = "帐号已被锁定. The account for username " + token.getPrincipal() + " was locked.";
+			msg = "帐号已被锁定.";
 		} catch (DisabledAccountException e) {
-			msg = "帐号已被禁用. The account for username " + token.getPrincipal() + " was disabled.";
+			msg = "帐号已被禁用. ";
 		} catch (ExpiredCredentialsException e) {
-			msg = "帐号已过期. the account for username " + token.getPrincipal() + "  was expired.";
+			msg = "帐号已过期.";
 		} catch (UnknownAccountException e) {
-			msg = "帐号不存在. There is no user with username of " + token.getPrincipal();
+			msg = "帐号不存在.";
 		} catch (UnauthorizedException e) {
-			msg = "您没有得到相应的授权！" + e.getMessage();
+			msg = "您没有得到相应的授权！";
 		}
 
-		model.addAttribute("message", msg);
+		model.addAttribute("error", msg);
+		
 		for(Entry<String, Object> entry : model.asMap().entrySet()){
 			redirectAttributes.addFlashAttribute(entry.getKey(), entry.getValue());
 		}

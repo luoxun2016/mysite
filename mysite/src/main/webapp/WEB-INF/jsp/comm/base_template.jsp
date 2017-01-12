@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib uri="http://www.ank.com/tmpl" prefix="tmpl" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +9,17 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/plugins/bootstrap/css/bootstrap.min.css">
   <!-- BootstrapValidator 0.4.5 -->
-  <link rel="stylesheet" href="/static/plugins/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/plugins/bootstrapvalidator/dist/css/bootstrapValidator.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/plugins/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="/static/plugins/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/plugins/ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/static/style/base.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/style/base.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="/static/style/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="${rc.contextPath}/static/style/skins/_all-skins.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,6 +27,8 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
+  <tmpl:block name="header"></tmpl:block>
 </head>
 <!-- ADD THE CLASS layout-boxed TO GET A BOXED LAYOUT -->
 <body class="hold-transition skin-blue sidebar-mini">
@@ -63,7 +66,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle" alt="User Image">
+                        <img src="${rc.contextPath}/static/image/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -134,13 +137,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{% static "dist/img/user2-160x160.jpg" %}" class="user-image" alt="User Image">
+              <img src="${rc.contextPath}/static/image/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Jackson</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle" alt="User Image">
+                <img src="${rc.contextPath}/static/image/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Jackson - Web Developer
@@ -167,7 +170,7 @@
                   <a href="#" class="btn btn-default btn-flat">个人信息</a>
                 </div>
                 <div class="pull-right">
-                  <a href="{% url 'logout' %}" class="btn btn-default btn-flat">退出登录</a>
+                  <a href="${rc.contextPath}/logout" class="btn btn-default btn-flat">退出登录</a>
                 </div>
               </li>
             </ul>
@@ -190,7 +193,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle" alt="User Image">
+          <img src="${rc.contextPath}/static/image/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Jackson</p>
@@ -215,13 +218,13 @@
         <li><a href="#"><i class="fa fa-th"></i> <span>Widgets</span></a></li>
         <li><a href="#"><i class="fa fa-pie-chart"></i> <span>网站统计</span></a></li>
         <li><a href="#"><i class="fa fa-paper-plane"></i> <span>快捷回复</span></a></li>
-        <li><a href="{% url 'calendar/index' %}"><i class="fa fa-calendar"></i> <span>日程管理</span>
+        <li><a href="${rc.contextPath}/calendar/index"><i class="fa fa-calendar"></i> <span>日程管理</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
               <small class="label pull-right bg-blue">17</small>
             </span></a>
         </li>
-        <li><a href="{% url 'mail/list' %}"><i class="fa fa-envelope"></i> <span>邮件管理</span>
+        <li><a href="${rc.contextPath}/mail/list"><i class="fa fa-envelope"></i> <span>邮件管理</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
               <small class="label pull-right bg-green">16</small>
@@ -229,8 +232,8 @@
             </span></a>
         </li>
         <li class="header">我的博客</li>
-        <li><a href="{% url 'article/edit' %}"><i class="fa fa-plus"></i> <span>发表文章</span></a></li>
-        <li><a href="{% url 'article/list' %}"><i class="fa fa-file-text"></i> <span>文章管理</span></a></li>
+        <li><a href="${rc.contextPath}/article/edit"><i class="fa fa-plus"></i> <span>发表文章</span></a></li>
+        <li><a href="${rc.contextPath}/article/list"><i class="fa fa-file-text"></i> <span>文章管理</span></a></li>
         <li><a href="#"><i class="fa fa-bookmark"></i> <span>分类管理</span></a></li>
         <li><a href="#"><i class="fa fa-comments"></i> <span>评论管理</span></a></li>
         <li><a href="#"><i class="fa fa-gear"></i> <span>博客设置</span></a></li>
@@ -258,8 +261,7 @@
 
     <!-- Main content -->
     <section class="content">
-    {% block mainbody %}
-    {% endblock %}
+    	<tmpl:block name="content"></tmpl:block>
     </section>
     <!-- /.content -->
   </div>
@@ -299,17 +301,18 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="${rc.contextPath}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="${rc.contextPath}/static/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- BootstrapValidator 0.4.5 -->
-<script src="/static/plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+<script src="${rc.contextPath}/static/plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
 <!-- SlimScroll -->
-<script src="/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="${rc.contextPath}/static/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="/static/plugins/fastclick/fastclick.js"></script>
+<script src="${rc.contextPath}/static/plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="/static/javascript/app.min.js"></script>
+<script src="${rc.contextPath}/static/javascript/app.min.js"></script>
 
+<tmpl:block name="bottom"></tmpl:block>
 </body>
 </html>
